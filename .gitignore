@@ -1,0 +1,10 @@
+# Ignorar archivos ejecutables
+*.out
+*.exe
+
+# Ignorar archivos objeto
+*.o
+*.obj
+
+# Ignorar configuracion de VScode
+.vscode/
