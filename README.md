@@ -2,7 +2,7 @@
 ## Grupo 7
 * Santiago Ezequiel Hamamura
 * Guido Biotti
-* _
+* Giovani Quispe 
 
 La entrega tiene que tener:
 1. Carátula
