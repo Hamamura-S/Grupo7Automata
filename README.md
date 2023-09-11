@@ -1,7 +1,7 @@
 # SSL - Trabajo Práctico N2 - Autómatas
 ## Grupo 7
 * Santiago Ezequiel Hamamura
-* _
+* Guido Biotti
 * _
 
 La entrega tiene que tener:
