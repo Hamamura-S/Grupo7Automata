@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include "lists.h"
 
 void saludar(){
     printf("Hola mundo");
 }
-
+/*
 void leer_teclado(){
     char string[100];
     int i,j,k=0;
@@ -48,5 +49,5 @@ void leer_archivo(){
         }
     }
     fclose(archivo);
-
 }
+*/
