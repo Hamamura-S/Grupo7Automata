@@ -2,4 +2,5 @@
 
 int main(){
     saludar();
+    leer_teclado();
 }
