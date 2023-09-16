@@ -7,7 +7,7 @@
 long array[20];
 
 void saludar(){
-    printf("Hola mundo");
+    printf("Hola mundo\n");
 }
 
 void mostrar_array(long array[]){
