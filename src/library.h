@@ -3,6 +3,7 @@
 #include <string.h>
 #include <ctype.h>
 #include "lists.h"
+#include "automata.h"
 
 long array[20];
 
@@ -56,4 +57,18 @@ long leer_archivo(){
     long *array = recorrer_string(string);
     fclose(archivo);
     return *array;
+}
+
+
+//devuelve 'd': decimal, 'o': octal, 'h': hexadecimal o -1 para ninguno
+int reconocerTipo(char palabra[], int len){
+
+    int state=0;
+        //considero -1 al estado de rechazo
+    for(int i=0; i<len; i++){
+        state = transition(state, palabra[i]);
+    }
+
+    return (state==1||state==2)?('d'):((state==3)?('h'):((state==4)?('o'):-1));
+
 }
