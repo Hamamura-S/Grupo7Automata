@@ -25,7 +25,7 @@ La cadena debe ingresar por línea de comando o por archivo.
 2) Debe realizar una función que reciba un carácter numérico y retorne un número entero.
 
 3) Ingresar una cadena que represente una operación simple con enteros decimales y
-obtener su resultado, se debe operar con +,- ,/, *. Ejemplo = 3+4*8/2+3-5 = 29. Debe
+obtener su resultado, se debe operar con +,- ,/, \*. Ejemplo = 3+4\*8/2+3-5 = 17. Debe
 poder operar con cualquier número de operandos y operadores respetando la precedencia
 de los operadores aritméticos y sin paréntesis.
 La cadena ingresada debe ser validada previamente preferentemente reutilizando las
