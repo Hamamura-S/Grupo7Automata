@@ -68,7 +68,7 @@ int reconocerTipo(char palabra[], int len){
     for(int i=0; i<len; i++){
         state = transition(state, palabra[i]);
     }
-
+        //LA NUMERACIÓN DE ESTADOS ES ACORDE AL DIAGRAMA DOCUMENTADO
     return (state==1||state==5)?('d'):((state==3)?('h'):((state==4)?('o'):-1));
 
 }
