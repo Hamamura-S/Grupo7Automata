@@ -69,6 +69,6 @@ int reconocerTipo(char palabra[], int len){
         state = transition(state, palabra[i]);
     }
 
-    return (state==1||state==2)?('d'):((state==3)?('h'):((state==4)?('o'):-1));
+    return (state==1||state==5)?('d'):((state==3)?('h'):((state==4)?('o'):-1));
 
 }

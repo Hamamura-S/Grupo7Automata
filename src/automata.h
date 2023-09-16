@@ -49,11 +49,14 @@ int transition(int actualState, char consumed){
             newState=1;
         }
         else if 
-           (isContainedBy(signos, SIGNS_AMOUNT, consumed) || 
-            isContainedBy(digitos_positivos, POSITIVE_DIGITS_AMOUNT, consumed)){
-                //el nuevo estado es decimal positivo o signado
+           (isContainedBy(signos, SIGNS_AMOUNT, consumed)){
+                //el nuevo estado es decimal SIGNADO
                 newState=2;
             }
+        else if(isContainedBy(digitos_positivos, POSITIVE_DIGITS_AMOUNT, consumed)){
+            //el nuevo estado es decimal NO SIGNADO
+            newState=5;
+        }
         else{
             newState=-1;
         }
@@ -75,10 +78,11 @@ int transition(int actualState, char consumed){
         break;
 
     case 2:
-        //el estado actual es decimal positivo o signado
+        //el estado actual es decimal SIGNADO
         if(isContainedBy(digitos_numericos, NUM_DIGITS_AMOUNT, consumed)){
-            //el estado actual es el unico posible
-            newState=2;
+            
+            //el estado siguiente es DECIMAL
+            newState=5;
         }
         else{
             newState=-1;
@@ -109,6 +113,15 @@ int transition(int actualState, char consumed){
         }
         break;
 
+    case 5:
+        //el estado actual es DECIMAL
+        if(isContainedBy(digitos_numericos, NUM_DIGITS_AMOUNT, consumed)){
+            //el actual es el unico posible
+            newState=5;
+        }
+        else{
+            newState=-1;
+        }
     default:
         printf("Already in refused state\n");
         newState=-1;

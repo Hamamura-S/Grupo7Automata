@@ -73,7 +73,7 @@ Node* createNode(int data){
 
 //Reserva heap para una lista vacia y la devuelve
 List* createList(){
-    List *newList=malloc(sizeof(List));
+    List *newList=(List*)malloc(sizeof(List));
     newList->first=NULL;
     newList->head=NULL;
     newList->size=0;
