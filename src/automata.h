@@ -8,22 +8,22 @@
 //algunas listas de utilizad
 
 #define NUM_DIGITS_AMOUNT 10
-int digitos_numericos[NUM_DIGITS_AMOUNT]={'0','1','2','3','4','5','6','7','8','9'};
+char digitos_numericos[NUM_DIGITS_AMOUNT]={'0','1','2','3','4','5','6','7','8','9'};
 
 #define POSITIVE_DIGITS_AMOUNT 9
-int digitos_positivos[POSITIVE_DIGITS_AMOUNT]={'1','2','3','4','5','6','7','8','9'};
+char digitos_positivos[POSITIVE_DIGITS_AMOUNT]={'1','2','3','4','5','6','7','8','9'};
 
 #define OCTAL_DIGITS_AMOUNT 8
-int digitos_octales[OCTAL_DIGITS_AMOUNT]={'0','1','2','3','4','5','6','7'};
+char digitos_octales[OCTAL_DIGITS_AMOUNT]={'0','1','2','3','4','5','6','7'};
 
 #define LETTERS_AMOUNT 12
-int letras[LETTERS_AMOUNT]={'A','B','C','D','E','F','a','b','c','d','e','f'};
+char letras[LETTERS_AMOUNT]={'A','B','C','D','E','F','a','b','c','d','e','f'};
 
 #define SIGNS_AMOUNT 2
-int signos[SIGNS_AMOUNT]={'+', '-'};
+char signos[SIGNS_AMOUNT]={'+', '-'};
 
 //devuelve verdadero si value esta contenido en el vector array[]
-bool isContainedBy(int array[], int len, int value){
+bool isContainedBy(char array[], int len, char value){
     for(int i=0; i<len; i++){
         if(array[i]==value){
             return true;
@@ -122,6 +122,7 @@ int transition(int actualState, char consumed){
         else{
             newState=-1;
         }
+        break;
     default:
         printf("Already in refused state\n");
         newState=-1;
