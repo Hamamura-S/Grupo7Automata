@@ -5,12 +5,17 @@
 #include "lists.h"
 #include "automata.h"
 
+#define MAX_ERROR_SIZE 20
+#define MAX_PALABRA_SIZE 20
+
+int reconocerTipo(char palabra[], int len);
+
 void saludar(){
     printf("Hola mundo\n");
 }
 
 char* leer_teclado(){
-    char *string_teclado[50] = malloc(sizeof(char)*50);
+    char *string_teclado = malloc(sizeof(char) * 50);
     printf("Introduce una cadena de numeros: ");
     fgets(string_teclado, 50, stdin);
     return string_teclado;
@@ -18,7 +23,7 @@ char* leer_teclado(){
 
 char* leer_archivo(char nombre_archivo[]){
     FILE *archivo;
-    char *string_archivo[50] = malloc(sizeof(char)*50);
+    char *string_archivo = malloc(sizeof(char)*50);
     int i=0; //longitud de la cadena
     char c=0; //caracter a leer
     archivo = fopen(nombre_archivo, "r");
@@ -32,10 +37,8 @@ char* leer_archivo(char nombre_archivo[]){
     }
     string_archivo[i]='\0';
     fclose(archivo);
-    return *string_archivo;
+    return string_archivo;
 }
-
-//crear una funcion char* automata_uno que reciba un string de numeros (decimales con y sin signo, octales y hexadecimales) separados por el signo $. Separe cada numero hasta el $ y lo pase a la funcion reconocerTipo(char palabra[], int len) para saber si es decimal, octal o hexa y luego sume uno a un contador de cada tipo.
 
 char* automata_uno(){
     printf("Queres leer un archivo o escribir en el teclado? (1/2)\n");
@@ -52,9 +55,9 @@ char* automata_uno(){
         string = leer_teclado();
     }
     int d,o,h,e=0;
-    char* errores_lexicos;
+    char **errores_lexicos = malloc(sizeof(char) * MAX_ERROR_SIZE);
     int i,j,k =0;
-    char *palabra;
+    char palabra[MAX_PALABRA_SIZE];
     while(i<strlen(string)){
         if(string[i]=='$'){
             j=0;
@@ -70,9 +73,10 @@ char* automata_uno(){
                     break;
                 default:
                     e++;
-                    errores_lexicos[k]=palabra;
+                    strcpy(errores_lexicos[k], palabra);
                     k++;
                     break;
+            i++;
             }
         }
         while(string[i]!='$'){
