@@ -81,6 +81,11 @@ char* automata_uno(){
             i++;
         }
     }
+    printf("Cantidad de decimales: %d\n", d);
+    printf("Cantidad de octales: %d\n", o);
+    printf("Cantidad de hexadecimales: %d\n", h);
+    printf("Cantidad de errores lexicos: %d\n", e);
+    printf("Errores lexicos: %s\n", errores_lexicos);
 }
 
 //devuelve 'd': decimal, 'o': octal, 'h': hexadecimal o -1 para ninguno
