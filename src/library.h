@@ -44,6 +44,7 @@ char* automata_uno(){
     printf("Queres leer un archivo o escribir en el teclado? (1/2)\n");
     int opcion;
     scanf("%d", &opcion);
+    getchar();
     char *string;
     if(opcion==1){
         printf("Introduce el nombre del archivo: ");
@@ -51,15 +52,19 @@ char* automata_uno(){
         scanf("%s", nombre_archivo);
         string = leer_archivo(nombre_archivo);
     }
-    else{
+    else if(opcion==2){
         string = leer_teclado();
     }
-    int d,o,h,e=0;
+    else{
+        printf("Opcion invalida\n");
+        automata_uno();
+    }
+    int d=0,o=0,h=0,e=0;
     char **errores_lexicos = malloc(sizeof(char) * MAX_ERROR_SIZE);
-    int i,j,k =0;
+    int i=0,j=0,k=0;
     char palabra[MAX_PALABRA_SIZE];
     while(i<strlen(string)){
-        if(string[i]=='$'){
+        if(string[i]=='$' || string[i]!='\0'){
             j=0;
             switch(reconocerTipo(palabra, strlen(palabra)-1)){
                 case 'd':
@@ -79,7 +84,7 @@ char* automata_uno(){
             i++;
             }
         }
-        while(string[i]!='$'){
+        while(string[i]!='$' || string[i]!='\0'){
             palabra[j]=string[i];
             j++;
             i++;
