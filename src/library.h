@@ -65,6 +65,7 @@ char* automata_uno(){
     char palabra[MAX_PALABRA_SIZE];
     int charAmount=strlen(string)-1;
     printf("Se ingresaron %d caracteres\n", charAmount);
+    
     while(i<charAmount){
         j=0;
         while(string[i]!='$' && i<charAmount){
@@ -83,6 +84,7 @@ char* automata_uno(){
                 h++;
                 break;
             default:
+                //cadena no reconocida se agrega al vector de cadenas  
                 errores_lexicos[e]=malloc(j+1); 
                 memcpy(errores_lexicos[e], palabra, j);
                 errores_lexicos[e][j]='\0';
@@ -90,6 +92,8 @@ char* automata_uno(){
                 break;
         }i++;
     }
+        //IMPRIMIENDO RESULTADOS
+
     printf("--------------------------------------\n");
     printf("Cadena procesada correctamente.\n");
     printf("Cantidad de decimales: %d\n", d);
@@ -99,9 +103,13 @@ char* automata_uno(){
     if(e>0){
         for(int i=0;i<e;i++){
             printf("\t%d. %s\n",i+1, errores_lexicos[i]);
+            free(errores_lexicos[i]);
         }
     }
     printf("--------------------------------------\n");
+
+    //liberando memoria
+    free(string);
 }
 
 //devuelve 'd': decimal, 'o': octal, 'h': hexadecimal o -1 para ninguno
