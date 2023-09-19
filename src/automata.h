@@ -124,7 +124,6 @@ int transition(int actualState, char consumed){
         }
         break;
     default:
-        printf("Already in refused state\n");
         newState=-1;
         break;
     }

@@ -7,6 +7,7 @@
 
 #define MAX_ERROR_SIZE 20
 #define MAX_PALABRA_SIZE 20
+#define MAX_STRING_SIZE 100
 
 int reconocerTipo(char palabra[], int len);
 
@@ -15,7 +16,7 @@ void saludar(){
 }
 
 char* leer_teclado(){
-    char *string_teclado = malloc(sizeof(char) * 50);
+    char *string_teclado = malloc(MAX_STRING_SIZE);
     printf("Introduce tu cadena: ");
     fgets(string_teclado, 50, stdin);
     return string_teclado;
@@ -23,7 +24,7 @@ char* leer_teclado(){
 
 char* leer_archivo(char nombre_archivo[]){
     FILE *archivo;
-    char *string_archivo = malloc(sizeof(char)*50);
+    char *string_archivo = malloc(MAX_STRING_SIZE);
     int i=0; //longitud de la cadena
     char c=0; //caracter a leer
     archivo = fopen(nombre_archivo, "r");
@@ -47,16 +48,19 @@ char* automata_uno(){
     getchar();
     char *string;
     if(opcion==1){
-        printf("Introduce el nombre del archivo: ");
-        char nombre_archivo[50];
-        scanf("%s", nombre_archivo);
+        printf("El archivo debe encontrarse en la carpeta files\n");
+        printf("\t| Ingresar nombre de archivo: ../files/");
+        char nombre_archivo[50]="../files/";
+        char name[40];
+        scanf("%s", name);
+        strcat(nombre_archivo, name);
         string = leer_archivo(nombre_archivo);
     }
     else if(opcion==2){
         string = leer_teclado();
     }
     else{
-        printf("Opcion invalida\n");
+        printf("Opcion invalida.\n");
         automata_uno();
     }
     int d=0,o=0,h=0,e=0;
@@ -64,7 +68,7 @@ char* automata_uno(){
     int i=0,j=0;
     char palabra[MAX_PALABRA_SIZE];
     int charAmount=strlen(string)-1;
-    printf("Se ingresaron %d caracteres\n", charAmount);
+    printf("%s (%d car.)\n", string,charAmount);
     
     while(i<charAmount){
         j=0;
