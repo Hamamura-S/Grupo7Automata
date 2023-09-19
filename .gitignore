@@ -8,3 +8,6 @@
 
 # Ignorar configuracion de VScode
 .vscode/
+
+# Ignorar archivo gcc
+*.h.gch
