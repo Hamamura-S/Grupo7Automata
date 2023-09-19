@@ -16,7 +16,7 @@ void saludar(){
 
 char* leer_teclado(){
     char *string_teclado = malloc(sizeof(char) * 50);
-    printf("Introduce una cadena de numeros: ");
+    printf("Introduce tu cadena: ");
     fgets(string_teclado, 50, stdin);
     return string_teclado;
 }
@@ -60,41 +60,48 @@ char* automata_uno(){
         automata_uno();
     }
     int d=0,o=0,h=0,e=0;
-    char **errores_lexicos = malloc(sizeof(char) * MAX_ERROR_SIZE);
-    int i=0,j=0,k=0;
+    char* errores_lexicos[10];
+    int i=0,j=0;
     char palabra[MAX_PALABRA_SIZE];
-    while(i<strlen(string)){
-        if(string[i]=='$' || string[i]!='\0'){
-            j=0;
-            switch(reconocerTipo(palabra, strlen(palabra)-1)){
-                case 'd':
-                    d++;
-                    break;
-                case 'o':
-                    o++;
-                    break;
-                case 'h':
-                    h++;
-                    break;
-                default:
-                    e++;
-                    strcpy(errores_lexicos[k], palabra);
-                    k++;
-                    break;
-            i++;
-            }
-        }
-        while(string[i]!='$' || string[i]!='\0'){
+    int charAmount=strlen(string)-1;
+    printf("Se ingresaron %d caracteres\n", charAmount);
+    while(i<charAmount){
+        j=0;
+        while(string[i]!='$' && i<charAmount){
             palabra[j]=string[i];
-            j++;
             i++;
+            j++;
         }
+        switch(reconocerTipo(palabra, j)){
+            case 'd':
+                d++;
+                break;
+            case 'o':
+                o++;
+                break;
+            case 'h':
+                h++;
+                break;
+            default:
+                errores_lexicos[e]=malloc(j+1); 
+                memcpy(errores_lexicos[e], palabra, j);
+                errores_lexicos[e][j]='\0';
+                e++;
+                break;
+        }i++;
     }
+    printf("--------------------------------------\n");
+    printf("Cadena procesada correctamente.\n");
     printf("Cantidad de decimales: %d\n", d);
     printf("Cantidad de octales: %d\n", o);
     printf("Cantidad de hexadecimales: %d\n", h);
     printf("Cantidad de errores lexicos: %d\n", e);
-    printf("Errores lexicos: %s\n", errores_lexicos);
+    if(e>0){
+        for(int i=0;i<e;i++){
+            printf("\t%d. %s\n",i+1, errores_lexicos[i]);
+        }
+    }
+    printf("--------------------------------------\n");
 }
 
 //devuelve 'd': decimal, 'o': octal, 'h': hexadecimal o -1 para ninguno
