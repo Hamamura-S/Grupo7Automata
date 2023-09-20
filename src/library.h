@@ -11,8 +11,13 @@
 
 int reconocerTipo(char palabra[], int len);
 
+void line(){
+    printf("--------------------------------------\n");
+}
+
 void saludar(){
-    printf("Hola mundo\n");
+    printf("Bienvenido.\n");
+    line();
 }
 
 char* leer_teclado(){
@@ -42,7 +47,7 @@ char* leer_archivo(char nombre_archivo[]){
 }
 
 char* automata_uno(){
-    printf("Queres leer un archivo o escribir en el teclado? (1/2)\n");
+    printf("Leer un archivo o escribir en el teclado? (1/2)\n");
     int opcion;
     scanf("%d", &opcion);
     getchar();
@@ -58,6 +63,7 @@ char* automata_uno(){
     }
     else if(opcion==2){
         string = leer_teclado();
+        string[strlen(string)-1]='\0';
     }
     else{
         printf("Opcion invalida.\n");
@@ -68,7 +74,7 @@ char* automata_uno(){
     int i=0,j=0;
     char palabra[MAX_PALABRA_SIZE];
     int charAmount=strlen(string)-1;
-    printf("%s (%d car.)\n", string,charAmount);
+    printf("%s (%d car.)\n", string,charAmount+1);
     
     while(i<charAmount){
         j=0;
@@ -98,7 +104,7 @@ char* automata_uno(){
     }
         //IMPRIMIENDO RESULTADOS
 
-    printf("--------------------------------------\n");
+    line();
     printf("Cadena procesada correctamente.\n");
     printf("Cantidad de decimales: %d\n", d);
     printf("Cantidad de octales: %d\n", o);
@@ -110,7 +116,7 @@ char* automata_uno(){
             free(errores_lexicos[i]);
         }
     }
-    printf("--------------------------------------\n");
+    line();
 
     //liberando memoria
     free(string);
