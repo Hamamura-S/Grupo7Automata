@@ -11,6 +11,8 @@ La entrega tiene que tener:
 4. Instructivo
 5. Especifícaciones de cómo funciona el programa
 
+Informe: https://docs.google.com/document/d/12wsj4CZIdNPGHan1qSHI7LWSkRY4xpBlupflF34h2y4/edit
+
 # Enunciado
 
 El programa tiene que tener estas funcionalidades
