@@ -20,6 +20,13 @@ void saludar(){
     line();
 }
 
+char keyRequest(){
+    char c = getchar();
+    //se debe limpiar el \n residual en stdin para evitar conflictos
+    getchar();
+    return c;
+}
+
 char* leer_teclado(){
     char *string_teclado = malloc(MAX_STRING_SIZE);
     printf("Introduce tu cadena: ");
@@ -135,40 +142,22 @@ int reconocerTipo(char palabra[], int len){
 
 }
 
-int reconocer_int(char numero){
-    switch (numero){
-        case '0':
-            return 0;
-            break;
-        case '1':
-            return 1;
-            break;
-        case '2':
-            return 2;
-            break; 
-        case '3':
-            return 3;
-            break; 
-        case '4':
-            return 4;
-            break; 
-        case '5':
-            return 5;
-            break; 
-        case '6':
-            return 6;
-            break; 
-        case '7':
-            return 7;
-            break; 
-        case '8':
-            return 8;
-            break; 
-        case '9':
-            return 9;
-            break; 
-        default:
-            return -1;
-            break;
+int charToInt(char numero){
+    return numero - '0';
+}
+
+void reconocer_int(){
+    
+    printf("Ingrese su digito: ");
+    char c=keyRequest();
+
+    if(c>=48 && c<=57){
+        //todo bien, se tecleo un digito
+        printf("El digito %d se reconoció correctamente\n", charToInt(c));
+
+    }else{
+        //todo mal, no se ingreso un digito entre 0-9
+        printf("El carácter %c no es un digito numérico válido.\n", c);
     }
+    line();
 }
