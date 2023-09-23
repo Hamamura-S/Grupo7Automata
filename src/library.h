@@ -53,6 +53,27 @@ char* leer_archivo(char nombre_archivo[]){
     return string_archivo;
 }
 
+// Función para evaluar la precedencia de los operadores
+int precedencia(char op) { 
+    if (op == '+' || op == '-') { // Si el operador es + o -
+        return 1; // Devolver 1, que es la menor precedencia
+    }
+    if (op == '*' || op == '/') { // Si el operador es * o /
+        return 2; // Devolver 2, que es la mayor precedencia
+    }
+    return 0; // Devolver 0, que indica que no es un operador válido
+}
+
+// Función para aplicar una operación a dos operandos
+double aplicar(double a, double b, char op) { 
+    switch (op) { 
+        case '+': return a + b; 
+        case '-': return a - b; 
+        case '*': return a * b; 
+        case '/': return a / b; 
+    }
+}
+
 char* automata_uno(){
     printf("Leer un archivo o escribir en el teclado? (1/2)\n");
     int opcion;
@@ -168,3 +189,31 @@ void reconocer_int(){
     }
     line();
 }
+/*
+void operacion_aritmetica(){
+    printf("Leer un archivo o escribir en el teclado? (1/2)\n");
+    int opcion;
+    scanf("%d", &opcion);
+    getchar();
+    char *exp;
+    if(opcion==1){
+        printf("El archivo debe encontrarse en la carpeta files\n");
+        printf("\t| Ingresar nombre de archivo: ../files/");
+        char nombre_archivo[50]="../files/";
+        char name[40];
+        scanf("%s", name);
+        strcat(nombre_archivo, name);
+        exp = leer_archivo(nombre_archivo);
+    }
+    else if(opcion==2){
+        exp = leer_teclado();
+        exp[strlen(exp)-1]='\0';
+    }
+    else{
+        printf("Opcion invalida.\n");
+        operacion_aritmetica();
+    }
+    printf("El resultado es: %lf\n", evaluar(&exp));
+    line();
+}
+*/
