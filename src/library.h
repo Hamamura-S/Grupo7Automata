@@ -213,8 +213,8 @@ void operacion_aritmetica(){
     int charAmount=strlen(exp)-1;
     while(i<charAmount){
         j=0;
-        while((string[i]=! '+' || string[i] =! '-' || string[i] =! '*' || string[i] =! '/') && i<charAmount){
-            palabra[j]=string[i];
+        while((exp[i]=! '+' || exp[i] =! '-' || exp[i] =! '*' || exp[i] =! '/') && i<charAmount){
+            palabra[j]=exp[i];
             i++;
             j++;
         }
