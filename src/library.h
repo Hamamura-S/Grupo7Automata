@@ -182,3 +182,31 @@ void reconocer_int(){
     }
     line();
 }
+/*
+void operacion_aritmetica(){
+    printf("Leer un archivo o escribir en el teclado? (1/2)\n");
+    int opcion;
+    scanf("%d", &opcion);
+    getchar();
+    char *exp;
+    if(opcion==1){
+        printf("El archivo debe encontrarse en la carpeta files\n");
+        printf("\t| Ingresar nombre de archivo: ../files/");
+        char nombre_archivo[50]="../files/";
+        char name[40];
+        scanf("%s", name);
+        strcat(nombre_archivo, name);
+        exp = leer_archivo(nombre_archivo);
+    }
+    else if(opcion==2){
+        exp = leer_teclado();
+        exp[strlen(exp)-1]='\0';
+    }
+    else{
+        printf("Opcion invalida.\n");
+        operacion_aritmetica();
+    }
+    printf("El resultado es: %lf\n", evaluar(&exp));
+    line();
+}
+*/
