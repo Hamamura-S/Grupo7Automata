@@ -206,7 +206,48 @@ void operacion_aritmetica(){
         printf("Opcion invalida.\n");
         operacion_aritmetica();
     }
-    printf("El resultado es: %lf\n", evaluar(&exp));
+    int d=0,o=0,h=0,e=0;
+    char* errores_lexicos[10];
+    int i=0,j=0;
+    char palabra[MAX_PALABRA_SIZE];
+    int charAmount=strlen(exp)-1;
+    while(i<charAmount){
+        j=0;
+        while((string[i]=! '+' || string[i] =! '-' || string[i] =! '*' || string[i] =! '/') && i<charAmount){
+            palabra[j]=string[i];
+            i++;
+            j++;
+        }
+        switch(reconocerTipo(palabra, j)){
+            case 'd':
+                d++;
+                break;
+            case 'o':
+                o++;
+                break;
+            case 'h':
+                h++;
+                break;
+            default:
+                //cadena no reconocida se agrega al vector de cadenas  
+                errores_lexicos[e]=malloc(j+1); 
+                memcpy(errores_lexicos[e], palabra, j);
+                errores_lexicos[e][j]='\0';
+                e++;
+                break;
+        }i++;
+    }
+    
+    printf("Cantidad de errores lexicos: %d\n", e);
+    if(e>0){
+        for(int i=0;i<e;i++){
+            printf("\t%d. %s\n",i+1, errores_lexicos[i]);
+            free(errores_lexicos[i]);
+        }
+    }else if (e=0){
+        printf("Cadena procesada correctamente.\n");
+        printf("El resultado es: %lf\n", evaluar(&exp));
+    }
     line();
 }
 */
