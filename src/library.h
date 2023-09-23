@@ -142,18 +142,25 @@ int reconocerTipo(char palabra[], int len){
 
 }
 
-int charToInt(char numero){
-    return numero - '0';
+int charToInt(char c){
+    if(c>=48 && c<=57){
+        //todo bien, se ingreso un numero
+        return c  - '0';
+    }
+    else{
+        //todo mal, no es un numero
+        return -1;
+    }
 }
 
 void reconocer_int(){
     
     printf("Ingrese su digito: ");
     char c=keyRequest();
-
-    if(c>=48 && c<=57){
+    int number;
+    if((number=charToInt(c))!=-1){
         //todo bien, se tecleo un digito
-        printf("El digito %d se reconoció correctamente\n", charToInt(c));
+        printf("El digito %d se reconoció correctamente\n", number);
 
     }else{
         //todo mal, no se ingreso un digito entre 0-9
