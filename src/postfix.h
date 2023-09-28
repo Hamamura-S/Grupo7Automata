@@ -11,15 +11,15 @@
 #define NUM_OP 4
 
 // Se declara una estructura para representar una pila
-struct pila {
+struct pila_postfix {
     double datos[MAX]; // Se declara un arreglo para guardar los datos de la pila
     int tope; // Se declara un entero para guardar el índice del elemento superior de la pila
 };
 
 // Se declara una función para crear una pila vacía
-struct pila *crearPila() {
-    struct pila *p; // Se declara un puntero a una estructura pila
-    p = (struct pila *)malloc(sizeof(struct pila)); // Se reserva memoria dinámica para la estructura pila
+struct pila_postfix *crearPilaPostfix() {
+    struct pila_postfix *p; // Se declara un puntero a una estructura pila
+    p = (struct pila_postfix *)malloc(sizeof(struct pila_postfix)); // Se reserva memoria dinámica para la estructura pila
     if (p == NULL) { // Se comprueba si se ha reservado correctamente la memoria
         printf("Error al reservar memoria\n");
         exit(1); // Se termina el programa con error
@@ -29,7 +29,7 @@ struct pila *crearPila() {
 }
 
 // Se declara una función para insertar un elemento en la pila
-void push(struct pila *p, double x) {
+void push_postfix(struct pila_postfix *p, double x) {
     if (p->tope == MAX - 1) { // Se comprueba si la pila está llena
         printf("La pila está llena\n");
         return; // Se termina la función sin hacer nada
@@ -39,7 +39,7 @@ void push(struct pila *p, double x) {
 }
 
 // Se declara una función para sacar un elemento de la pila
-double pop(struct pila *p) {
+double pop_postfix(struct pila_postfix *p) {
     double x; // Se declara una variable para guardar el elemento a sacar
     if (p->tope == -1) { // Se comprueba si la pila está vacía
         printf("La pila está vacía\n");
@@ -115,7 +115,7 @@ double evaluarPostfijo(char *expresion) {
     int longitud; // Variable para guardar la longitud de la expresión 
     double a, b, resultado; // Variables para guardar los operandos y el resultado de cada operación 
     char operador; // Variable para guardar el operador de cada operación 
-    struct pila *p = crearPila(); // Se crea una pila vacía para guardar los operandos
+    struct pila_postfix *p = crearPilaPostfix(); // Se crea una pila vacía para guardar los operandos
     longitud = strlen(expresion); // Se obtiene la longitud de la expresión con strlen
     for (i = 0; i < longitud; i++) { // Se recorre la expresión desde el inicio hasta el final
         if (isdigit(expresion[i])) { // Se comprueba si el caracter actual es un dígito con isdigit
@@ -124,12 +124,12 @@ double evaluarPostfijo(char *expresion) {
                                 resultado = resultado * 10 + (expresion[i] - '0'); // Se multiplica el resultado por 10 y se le suma el valor numérico del dígito actual
                 i++; // Se incrementa el índice en uno
             }
-            push(p, resultado); // Se inserta el número obtenido en la pila
+            push_postfix(p, resultado); // Se inserta el número obtenido en la pila
         }
         else if (expresion[i] == '+' || expresion[i] == '-' || expresion[i] == '*' || expresion[i] == '/') { // Se comprueba si el caracter actual es un operador con un if-else anidado
             operador = expresion[i]; // Se guarda el operador en una variable
-            b = pop(p); // Se saca el primer operando de la pila y se guarda en b
-            a = pop(p); // Se saca el segundo operando de la pila y se guarda en a
+            b = pop_postfix(p); // Se saca el primer operando de la pila y se guarda en b
+            a = pop_postfix(p); // Se saca el segundo operando de la pila y se guarda en a
             switch (operador) { // Se usa un switch-case para evaluar el tipo de operador y realizar la operación correspondiente
                 case '+': // Si el operador es +
                     resultado = a + b; // Se suma a y b y se guarda el resultado
@@ -151,20 +151,20 @@ double evaluarPostfijo(char *expresion) {
                     printf("Error: operador inválido\n"); // Se imprime el error encontrado
                     exit(1); // Se termina el programa con error
             }
-            push(p, resultado); // Se inserta el resultado de la operación en la pila
+            push_postfix(p, resultado); // Se inserta el resultado de la operación en la pila
         }
         else if (expresion[i] == ' ' || expresion[i] == '\n') { // Se comprueba si el caracter actual es un espacio o un salto de línea con un if-else anidado
             continue; // Se ignora el caracter y se pasa al siguiente
         }
     }
-    resultado = pop(p); // Se saca el último elemento de la pila, que corresponde al resultado final de la expresión postfija 
+    resultado = pop_postfix(p); // Se saca el último elemento de la pila, que corresponde al resultado final de la expresión postfija 
     return resultado; // Se devuelve el resultado final como un double 
 }
 
 /*
 // Función principal que muestra un ejemplo de uso de las funciones leerCadena, validarCadena y evaluarPostfijo
 int main() {
-    char *expresion= (char*)malloc(100);; // Se declara un puntero a char para guardar la expresión postfija
+    char *expresion= (char*)malloc(100); // Se declara un puntero a char para guardar la expresión postfija
     double resultado; // Se declara una variable para guardar el resultado de la evaluación
     char opcion; // Se declara una variable para guardar la opción del usuario
     FILE *archivo; // Se declara un puntero a FILE para guardar el archivo donde se guardarán las expresiones y sus resultados
