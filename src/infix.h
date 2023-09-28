@@ -4,32 +4,32 @@
 #include <ctype.h>
 
 // Estructura para representar un nodo de la pila
-typedef struct nodo {
+typedef struct nodo_infix {
     char dato; // El dato puede ser un operador o un operando
-    struct nodo *siguiente; // El puntero al siguiente nodo
-} Nodo;
+    struct nodo_infix *siguiente; // El puntero al siguiente nodo
+} NodoInfix;
 
 // Estructura para representar una pila
 typedef struct pila {
-    Nodo *tope; // El puntero al nodo que está en el tope de la pila
+    NodoInfix *tope; // El puntero al nodo que está en el tope de la pila
     int tamano; // El tamaño de la pila
-} Pila;
+} PilaInfix;
 
 // Función para crear una pila vacía
-Pila *crearPila() {
-    Pila *p = (Pila *)malloc(sizeof(Pila)); // Se reserva memoria para la pila
+PilaInfix *crearPilaInfix() {
+    PilaInfix *p = (PilaInfix *)malloc(sizeof(PilaInfix)); // Se reserva memoria para la pila
     p->tope = NULL; // Se inicializa el tope a NULL
     p->tamano = 0; // Se inicializa el tamaño a 0
     return p; // Se retorna la pila creada
 }
 
 // Función para verificar si una pila está vacía
-int estaVacia(Pila *p) {
+int estaVacia(PilaInfix *p) {
     return p->tamano == 0; // Se retorna verdadero si el tamaño es 0, falso en caso contrario
 }
 
 // Función para obtener el dato que está en el tope de una pila, sin desapilarlo
-char tope(Pila *p) {
+char tope(PilaInfix *p) {
     if (estaVacia(p)) { // Si la pila está vacía, se retorna un caracter nulo
         return '\0';
     }
@@ -37,8 +37,8 @@ char tope(Pila *p) {
 }
 
 // Función para apilar un dato en una pila
-void apilar(Pila *p, char dato) {
-    Nodo *n = (Nodo *)malloc(sizeof(Nodo)); // Se reserva memoria para el nuevo nodo
+void apilar(PilaInfix *p, char dato) {
+    NodoInfix *n = (NodoInfix *)malloc(sizeof(NodoInfix)); // Se reserva memoria para el nuevo nodo
     n->dato = dato; // Se asigna el dato al nodo
     n->siguiente = p->tope; // Se hace que el siguiente del nodo sea el tope actual de la pila
     p->tope = n; // Se hace que el tope de la pila sea el nuevo nodo
@@ -46,12 +46,12 @@ void apilar(Pila *p, char dato) {
 }
 
 // Función para desapilar un dato de una pila y retornarlo
-char desapilar(Pila *p) {
+char desapilar(PilaInfix *p) {
     if (estaVacia(p)) { // Si la pila está vacía, se retorna un caracter nulo
         return '\0';
     }
     char dato = p->tope->dato; // Se guarda el dato del nodo que está en el tope
-    Nodo *temp = p->tope; // Se guarda un puntero temporal al nodo que está en el tope
+    NodoInfix *temp = p->tope; // Se guarda un puntero temporal al nodo que está en el tope
     p->tope = p->tope->siguiente; // Se hace que el tope de la pila sea el siguiente del nodo actual
     free(temp); // Se libera la memoria del nodo que se desapiló
     p->tamano--; // Se decrementa el tamaño de la pila
@@ -59,7 +59,7 @@ char desapilar(Pila *p) {
 }
 
 // Función para liberar la memoria de una pila
-void liberarPila(Pila *p) {
+void liberarPila(PilaInfix *p) {
     while (!estaVacia(p)) { // Mientras la pila no esté vacía, se desapilan los nodos y se liberan
         desapilar(p);
     }
@@ -69,6 +69,76 @@ void liberarPila(Pila *p) {
 // Función para verificar si un caracter es un operador aritmético válido (+, -, *, /)
 int esOperador(char c) {
     return c == '+' || c == '-' || c == '*' || c == '/';
+}
+
+// Función para obtener la precedencia de un operador aritmético
+// Se asume que el operador es válido
+// Se retorna un valor mayor para mayor precedencia
+int precedencia(char op) {
+    if (op == '+' || op == '-') { // La suma y la resta tienen la menor precedencia
+        return 1;
+    }
+    if (op == '*' || op == '/') { // La multiplicación y la división tienen mayor precedencia que la suma y la resta
+        return 2;
+    }
+    return 0; // En caso de que el operador no sea válido, se retorna 0
+}
+
+// Función para convertir una expresión aritmética de notación infija a notación postfija
+// Se asume que la expresión es válida y que solo contiene números enteros y operadores aritméticos
+// Se retorna una cadena con la expresión en notación postfija, separando los elementos con espacios
+char *infixToPostfix(char *expresion) {
+    int n = strlen(expresion); // Se obtiene la longitud de la expresión
+    char *salida = (char *)malloc(n * 2); // Se reserva memoria para la salida, que tendrá como máximo el doble de la longitud de la expresión
+    int i = 0; // Se inicializa un índice para recorrer la expresión
+    int j = 0; // Se inicializa un índice para escribir en la salida
+    PilaInfix *p = crearPilaInfix(); // Se crea una pila vacía para almacenar los operadores
+
+    while (i < n) { // Mientras no se haya recorrido toda la expresión
+        char c = expresion[i]; // Se obtiene el caracter actual
+
+        if (isdigit(c)) { // Si es un dígito, se escribe en la salida y se avanza el índice de escritura
+            salida[j] = c;
+            j++;
+        } else if (esOperador(c)) { // Si es un operador, se verifica si hay que desapilar otros operadores de la pila
+            salida[j] = ' '; // Se escribe un espacio en la salida para separar los elementos
+            j++;
+            while (!estaVacia(p) && precedencia(tope(p)) >= precedencia(c)) { // Mientras la pila no esté vacía y el operador en el tope tenga mayor o igual precedencia que el actual, se desapila y se escribe en la salida
+                salida[j] = desapilar(p);
+                j++;
+                salida[j] = ' '; // Se escribe un espacio en la salida para separar los elementos
+                j++;
+            }
+            apilar(p, c); // Se apila el operador actual en la pila
+        } else if (c == '(') { // Si el caracter es un paréntesis izquierdo
+            apilar(p, c); // Se apila en la pila de operadores
+        } else if (c == ')') { // Si el caracter es un paréntesis derecho
+            while (!estaVacia(p) && tope(p) != '(') { // Mientras la pila no esté vacía y el operador en el tope no sea un paréntesis izquierdo
+                salida[j] = ' '; // Se escribe un espacio en la salida para separar los elementos
+                j++;
+                salida[j] = desapilar(p); // Se desapila el operador de la pila y se escribe en la salida
+                j++;
+            }
+            if (!estaVacia(p)) { // Si la pila no está vacía
+                desapilar(p); // Se desapila y se descarta el paréntesis izquierdo
+            }
+        }
+
+        i++; // Se avanza el índice de lectura
+    }
+
+    while (!estaVacia(p)) { // Mientras queden operadores en la pila, se desapilan y se escriben en la salida
+        salida[j] = ' '; // Se escribe un espacio en la salida para separar los elementos
+        j++;
+        salida[j] = desapilar(p);
+        j++;
+    }
+
+    salida[j] = '\0'; // Se termina la cadena con un caracter nulo
+
+    liberarPila(p); // Se libera la memoria de la pila
+
+    return salida; // Se retorna la cadena con la expresión postfija
 }
 
 // Función para obtener la precedencia de un operador aritmético
