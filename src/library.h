@@ -5,7 +5,7 @@
 #include "lists.h"
 #include "automata.h"
 #include "infix.h"
-#include "postix.h"
+#include "postfix.h"
 
 #define MAX_ERROR_SIZE 20
 #define MAX_PALABRA_SIZE 20
