@@ -55,27 +55,6 @@ char* leer_archivo(char nombre_archivo[]){
     return string_archivo;
 }
 
-// Función para evaluar la precedencia de los operadores
-int precedencia(char op) { 
-    if (op == '+' || op == '-') { // Si el operador es + o -
-        return 1; // Devolver 1, que es la menor precedencia
-    }
-    if (op == '*' || op == '/') { // Si el operador es * o /
-        return 2; // Devolver 2, que es la mayor precedencia
-    }
-    return 0; // Devolver 0, que indica que no es un operador válido
-}
-
-// Función para aplicar una operación a dos operandos
-double aplicar(double a, double b, char op) { 
-    switch (op) { 
-        case '+': return a + b; 
-        case '-': return a - b; 
-        case '*': return a * b; 
-        case '/': return a / b; 
-    }
-}
-
 char* automata_uno(){
     printf("Leer un archivo o escribir en el teclado? (1/2)\n");
     int opcion;
