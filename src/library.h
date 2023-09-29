@@ -243,7 +243,7 @@ char* leer_cadena() {
   switch (opcion) {
     case 1: { // Leer desde archivo
       puts("El archivo debe encontrarse en la carpeta files");
-      puts("\t| Ingresar nombre de archivo: ../files/");
+      puts("Ingresar nombre de archivo: ../files/");
       // Declarar e inicializar el arreglo nombre_archivo con la constante FILES_FOLDER
       char nombre_archivo[FILE_NAME_SIZE] = FILES_FOLDER;
       // Declarar el arreglo name
@@ -300,19 +300,13 @@ int operacion_aritmetica(){
         int i=0,j=0;
         char palabra[MAX_PALABRA_SIZE];
         int charAmount=strlen(expresion)-1;
-        printf("%s (%d car.)\n\n", expresion,charAmount+1);
-        printf("La cadena leida es: %s\n",expresion);
-
         while(i<=charAmount){
             j=0;
-            printf("Operandos validos-> ");
             while((expresion[i] != '+' && expresion[i] != '-' && expresion[i] != '*' && expresion[i] != '/') && i <=charAmount){
-                printf("%c",expresion[i]);
                 palabra[j]=expresion[i];
                 i++;
                 j++;
             }
-            printf("%c\n",expresion[i]);
             switch(reconocerTipo(palabra, j)){
                 case 'd': d++;
                 break;
@@ -329,19 +323,15 @@ int operacion_aritmetica(){
                     break;
             }i++;
         }
-        printf("Cantidad de errores lexicos: %d\n", e);
         if(e>0){
         for(int i=0;i<e;i++){
+            printf("Cantidad de errores lexicos: %d\n", e);
             printf("\t%d. %s\n",i+1, errores_lexicos[i]);
             free(errores_lexicos[i]);
         }
         }else if (e==0){
             char* postfija = infixToPostfix(expresion);
-            printf("Cadena procesada correctamente.\n\n");
-            printf("Cantidad de decimales: %d\n", d);
             if (validarCadena(postfija)) { // Se llama a la función validarCadena para comprobar si la expresión es válida
-                printf("La operación ingresada es: %s\n", expresion); // Se imprime la cadena de la operación infija
-                printf("La operación en notación postfija es: %s\n", postfija); // Se imprime la cadena de la operación postfija
                 printf("El resultado es: %.2f\n", evaluarPostfijo(postfija));
             }
             else{ // Si la expresión no es válida, se imprime un mensaje de error
