@@ -176,6 +176,58 @@ void reconocer_int(){
     line();
 }
 
+// Función que evalúa una expresión postfija y devuelve su resultado como un double
+double evaluarPostfijo(char *expresion) {
+    int i; // Variable para recorrer la expresión 
+    int longitud; // Variable para guardar la longitud de la expresión 
+    double a, b, resultado; // Variables para guardar los operandos y el resultado de cada operación 
+    char operador; // Variable para guardar el operador de cada operación 
+    struct pila_postfix *p = crearPilaPostfix(); // Se crea una pila vacía para guardar los operandos
+    longitud = strlen(expresion); // Se obtiene la longitud de la expresión con strlen
+    for (i = 0; i < longitud; i++) { // Se recorre la expresión desde el inicio hasta el final
+        if (isdigit(expresion[i])) { // Se comprueba si el caracter actual es un dígito con isdigit
+            resultado = 0; // Se inicializa el resultado a cero
+            while (isdigit(expresion[i])) { // Se convierte la cadena de dígitos en un número double con un bucle while
+                                resultado = resultado * 10 + (charToInt(expresion[i])); // Se multiplica el resultado por 10 y se le suma el valor numérico del dígito actual
+                i++; // Se incrementa el índice en uno
+            }
+            push_postfix(p, resultado); // Se inserta el número obtenido en la pila
+        }
+        else if (expresion[i] == '+' || expresion[i] == '-' || expresion[i] == '*' || expresion[i] == '/') { // Se comprueba si el caracter actual es un operador con un if-else anidado
+            operador = expresion[i]; // Se guarda el operador en una variable
+            b = pop_postfix(p); // Se saca el primer operando de la pila y se guarda en b
+            a = pop_postfix(p); // Se saca el segundo operando de la pila y se guarda en a
+            switch (operador) { // Se usa un switch-case para evaluar el tipo de operador y realizar la operación correspondiente
+                case '+': // Si el operador es +
+                    resultado = a + b; // Se suma a y b y se guarda el resultado
+                    break; // Se sale del switch-case
+                case '-': // Si el operador es -
+                    resultado = a - b; // Se resta a y b y se guarda el resultado
+                    break; // Se sale del switch-case
+                case '*': // Si el operador es *
+                    resultado = a * b; // Se multiplica a y b y se guarda el resultado
+                    break; // Se sale del switch-case
+                case '/': // Si el operador es /
+                    if (b == 0) { // Se comprueba si b es cero para evitar una división por cero
+                        printf("Error: división por cero\n"); // Se imprime el error encontrado
+                        exit(1); // Se termina el programa con error
+                    }
+                    resultado = a / b; // Se divide a entre b y se guarda el resultado
+                    break; // Se sale del switch-case
+                default: // Si el operador no es ninguno de los anteriores, se asume que es un error
+                    printf("Error: operador inválido\n"); // Se imprime el error encontrado
+                    exit(1); // Se termina el programa con error
+            }
+            push_postfix(p, resultado); // Se inserta el resultado de la operación en la pila
+        }
+        else if (expresion[i] == ' ' || expresion[i] == '\n') { // Se comprueba si el caracter actual es un espacio o un salto de línea con un if-else anidado
+            continue; // Se ignora el caracter y se pasa al siguiente
+        }
+    }
+    resultado = pop_postfix(p); // Se saca el último elemento de la pila, que corresponde al resultado final de la expresión postfija 
+    return resultado; // Se devuelve el resultado final como un double 
+}
+
 // Función para leer una cadena desde un archivo o desde el teclado
 char* leer_cadena() {
   // Declarar e inicializar la variable string con un valor nulo
