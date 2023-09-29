@@ -10,6 +10,10 @@
 // Se define una constante para el número de operadores posibles
 #define NUM_OP 4
 
+int charToInt(char numero){
+    return numero - '0';
+}
+
 // Se declara una estructura para representar una pila
 struct pila_postfix {
     double datos[MAX]; // Se declara un arreglo para guardar los datos de la pila
