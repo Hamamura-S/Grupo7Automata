@@ -260,7 +260,7 @@ int operacion_aritmetica(){
                 i++;
                 j++;
             }
-            printf("\n",expresion[i]);
+            printf("%c\n",expresion[i]);
             switch(reconocerTipo(palabra, j)){
                 case 'd': d++;
                 break;

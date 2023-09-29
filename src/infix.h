@@ -92,7 +92,7 @@ char *infixToPostfix(char *expresion) {
     char *salida = (char *)malloc(n * 2); // Se reserva memoria para la salida, que tendrá como máximo el doble de la longitud de la expresión
     int i = 0; // Se inicializa un índice para recorrer la expresión
     int j = 0; // Se inicializa un índice para escribir en la salida
-    Pila *p = crearPila(); // Se crea una pila vacía para almacenar los operadores
+    PilaInfix *p = crearPilaInfix(); // Se crea una pila vacía para almacenar los operadores
 
     while (i < n) { // Mientras no se haya recorrido toda la expresión
         char c = expresion[i]; // Se obtiene el caracter actual
