@@ -280,7 +280,7 @@ int operacion_aritmetica(){
             printf("El resultado es: %.2f\n", evaluarPostfijo(postfija));
             free(expresion); // Se libera la memoria reservada para la expresion
             free(postfija); // Se libera la memoria reservada para la expresión postfija
-    }
+        }
     line();
     }
     return 0;
