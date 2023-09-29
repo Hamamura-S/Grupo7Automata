@@ -245,7 +245,7 @@ int operacion_aritmetica(){
 
         while(i<charAmount){
             j=0;
-            while((expresion[i] != '+' && expresion[i] != '-' && expresion[i] != '*' && expresion[i] != '/') && i<charAmount){
+            while((expresion[i] != '+' && expresion[i] != '-' && expresion[i] != '*' && expresion[i] != '/') && i<=charAmount){
                 palabra[j]=expresion[i];
                 i++;
                 j++;
