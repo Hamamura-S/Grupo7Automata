@@ -231,6 +231,7 @@ char* leer_cadena() {
 }
 
 int operacion_aritmetica(){
+    line();
     char *expresion= (char*)malloc(100);// Se declara un puntero a char para guardar la expresión
     expresion = leer_cadena();
 
@@ -243,13 +244,16 @@ int operacion_aritmetica(){
         printf("%s (%d car.)\n\n", expresion,charAmount+1);
         printf("La cadena leida es: %s\n",expresion);
 
-        while(i<charAmount){
+        while(i<=charAmount){
             j=0;
-            while((expresion[i] != '+' && expresion[i] != '-' && expresion[i] != '*' && expresion[i] != '/') && i<=charAmount){
+            printf("Operandos validos-> ");
+            while((expresion[i] != '+' && expresion[i] != '-' && expresion[i] != '*' && expresion[i] != '/') && i <=charAmount){
+                printf("%c",expresion[i]);
                 palabra[j]=expresion[i];
                 i++;
                 j++;
             }
+            printf("\n",expresion[i]);
             switch(reconocerTipo(palabra, j)){
                 case 'd': d++;
                 break;
@@ -268,20 +272,21 @@ int operacion_aritmetica(){
         }
         printf("Cantidad de errores lexicos: %d\n", e);
         if(e>0){
-            for(int i=0;i<e;i++){
+        for(int i=0;i<e;i++){
             printf("\t%d. %s\n",i+1, errores_lexicos[i]);
             free(errores_lexicos[i]);
         }
         }else if (e==0){
-            printf("Cadena procesada correctamente.\n\n");
-            char* postfija = infixToPostfix(expresion);
-            printf("La operación ingresada es: %s\n", expresion); // Se imprime la cadena de la operación infija
-            printf("La operación en notación postfija es: %s\n", postfija); // Se imprime la cadena de la operación postfija
-            printf("El resultado es: %.2f\n", evaluarPostfijo(postfija));
-            free(expresion); // Se libera la memoria reservada para la expresion
-            free(postfija); // Se libera la memoria reservada para la expresión postfija
+        printf("Cadena procesada correctamente.\n\n");
+        printf("Cantidad de decimales: %d\n", d);
+        char* postfija = infixToPostfix(expresion);
+        printf("La operación ingresada es: %s\n", expresion); // Se imprime la cadena de la operación infija
+        printf("La operación en notación postfija es: %s\n", postfija); // Se imprime la cadena de la operación postfija
+        printf("El resultado es: %.2f\n", evaluarPostfijo(postfija));
+        free(expresion); // Se libera la memoria reservada para la expresion
+        free(postfija); // Se libera la memoria reservada para la expresión postfija
         }
-    line();
     }
+    line();
     return 0;
 }
