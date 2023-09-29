@@ -108,7 +108,7 @@ int validarCadena(char *cadena) {
     }
     return 1; // Si se llega hasta aquí, se asume que la cadena es válida y se devuelve uno
 }
-
+/*
 // Función que evalúa una expresión postfija y devuelve su resultado como un double
 double evaluarPostfijo(char *expresion) {
     int i; // Variable para recorrer la expresión 
@@ -159,7 +159,7 @@ double evaluarPostfijo(char *expresion) {
     }
     resultado = pop_postfix(p); // Se saca el último elemento de la pila, que corresponde al resultado final de la expresión postfija 
     return resultado; // Se devuelve el resultado final como un double 
-}
+}*/
 
 /*
 // Función principal que muestra un ejemplo de uso de las funciones leerCadena, validarCadena y evaluarPostfijo
