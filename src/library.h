@@ -277,14 +277,18 @@ int operacion_aritmetica(){
             free(errores_lexicos[i]);
         }
         }else if (e==0){
-        printf("Cadena procesada correctamente.\n\n");
-        printf("Cantidad de decimales: %d\n", d);
-        char* postfija = infixToPostfix(expresion);
-        printf("La operación ingresada es: %s\n", expresion); // Se imprime la cadena de la operación infija
-        printf("La operación en notación postfija es: %s\n", postfija); // Se imprime la cadena de la operación postfija
-        printf("El resultado es: %.2f\n", evaluarPostfijo(postfija));
-        free(expresion); // Se libera la memoria reservada para la expresion
-        free(postfija); // Se libera la memoria reservada para la expresión postfija
+            char* postfija = infixToPostfix(expresion);
+            printf("Cadena procesada correctamente.\n\n");
+            printf("Cantidad de decimales: %d\n", d);
+            if (validarCadena(postfija)) { // Se llama a la función validarCadena para comprobar si la expresión es válida
+                printf("La operación ingresada es: %s\n", expresion); // Se imprime la cadena de la operación infija
+                printf("La operación en notación postfija es: %s\n", postfija); // Se imprime la cadena de la operación postfija
+                printf("El resultado es: %.2f\n", evaluarPostfijo(postfija));
+            }
+            else{ // Si la expresión no es válida, se imprime un mensaje de error
+                printf("La expresión no es válida\n");
+            }
+            free(postfija); // Se libera la memoria reservada para la expresión postfija
         }
     }
     line();
