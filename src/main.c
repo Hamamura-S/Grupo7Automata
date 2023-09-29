@@ -36,7 +36,8 @@ int main(){
         case '3':
 
             //se pidio resolver una operacion aritmetica
-            /*operacion_aritmetica();*/
+            operacion_aritmetica();
+            
         default:
             continue;
         }
