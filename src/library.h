@@ -11,6 +11,11 @@
 #define MAX_PALABRA_SIZE 20
 #define MAX_STRING_SIZE 100
 
+// Constante simbólica para el nombre de la carpeta files
+#define FILES_FOLDER "../files/"
+// Constante simbólica para el tamaño del arreglo nombre_archivo
+#define FILE_NAME_SIZE 100
+
 int reconocerTipo(char palabra[], int len);
 
 void line(){
